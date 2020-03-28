@@ -153,10 +153,11 @@ public class GraphTester {
             System.out.println("  1) Delete an edge (link) of the graph");
             System.out.println("  2) Modify the capacity of an edge (link)");
             System.out.println("  3) Add a new graph (OPTIONAL)");
+            System.out.println("  4) Back to main menu");
             System.out.print(">");
             secondC = intInputValidator();
 
-        }while (secondC<1 || secondC>3);
+        }while (secondC<1 || secondC>4);
 
         if (secondC == 1) {
 
@@ -180,6 +181,8 @@ public class GraphTester {
             System.out.println("Elapsed Time : "+time);
 
             System.out.println(YELLOW + "Maximum flow from source S to destination T is: " + max_flow + RESET);
+
+            editGraph();
 
         }else if (secondC == 2){
 
@@ -207,7 +210,9 @@ public class GraphTester {
 
             System.out.println(YELLOW + "Maximum flow from source S to destination T is: " + max_flow + RESET);
 
-        }else {
+            editGraph();
+
+        }else if(secondC == 3){
             Scanner scan = new Scanner(System.in);
 
             System.out.println("Enter the required number of vertices :");
@@ -229,15 +234,34 @@ public class GraphTester {
 
             System.out.println("Your Matrix is : ");
 
+            File file = new File("newDataset.txt");
+            FileWriter flw = null;
+
             for (int i = 0; i < matrixRow; i++) {
                 for (int j = 0; j < matrixCol; j++) {
                     System.out.print(matrix[i][j] + "\t");
+
+                    try {
+                        flw = new FileWriter(file, true);
+                        flw.write(String.valueOf(matrix[i][j]));
+                    } catch (IOException e) {
+                        e.printStackTrace();  //method of class throwable
+                    }finally {
+                        try{
+                            flw.close();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 System.out.println();
             }
+            editGraph();
+
+        }else {
+            consoleApp();
         }
-        consoleApp();
     }
 
 
